@@ -31,7 +31,7 @@ def download(doi, save_path):
         with open(os.path.join(save_path, file_name), mode='wb') as f:
             for chunk in reqFile.iter_content(chunk_size):
                 f.write(chunk)
-    except requests.exceptions.RequestException as e:
+    except Exception as e:
         message = e
     return message
 

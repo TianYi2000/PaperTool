@@ -11,12 +11,17 @@ import shutil
 
 CACHE_ROOT = './.cache/fitz_image'
 
-def run(pdf_path,img_path):
-    '''
+'''
     pdf转img
+    
+    输入：
     pdf_path: 原始pdf路径
     img_path: 输出图片路径，需要确保路径为空
-    '''
+    
+    无返回
+'''
+def run(pdf_path,img_path):
+
     cache_dir = os.path.join(CACHE_ROOT, str(time.time()))
     if os.path.exists(cache_dir):
         os.removedirs(cache_dir)

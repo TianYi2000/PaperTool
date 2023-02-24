@@ -1,5 +1,15 @@
 import requests
 
+
+'''
+    英文转中文
+    
+    输入：
+    query: 英文字符串
+    
+    返回：
+    翻译中文字符串
+'''
 def eng2chn(query):
     url = 'http://fanyi.youdao.com/translate'
     data = {
