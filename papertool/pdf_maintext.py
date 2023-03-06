@@ -2,11 +2,12 @@ import os
 from math import fabs
 from tqdm import tqdm
 import pdfplumber
+import time
 
 class Article:
     def __init__(self):
         self.font_set = {}
-        self.titles = []
+        self.main_text = ''
 
     def count(self, pdf_crop):
         index = 0
@@ -82,54 +83,47 @@ class Article:
             fontname = pdf_crop.chars[index]['fontname']
             fontsize = pdf_crop.chars[index]['size']
             if fontname == self.main_font and self.equal(fontsize, self.main_size):
-                index += 1
-                continue
-            new_index, text = self.read_text(pdf_crop.chars, index, fontname ,fontsize)
+                new_index, text = self.read_text(pdf_crop.chars, index, fontname ,fontsize)
+                self.main_text += ' ' + text
+            else:
+                new_index = index + 1
 
-            if index == 0:
-                if not self.equal(pdf_crop.chars[new_index]['y0'], pdf_crop.chars[new_index - 2]['y0']) and \
-                    (self.equal(pdf_crop.chars[new_index]['size'], self.main_size) and pdf_crop.chars[new_index]['fontname'] == self.main_font) and \
-                    fontsize + 0.001 >= self.main_size:
-                        self.titles.append(text)
-                index = new_index
-                continue
-            if new_index >= len(pdf_crop.chars):
-                if not self.equal(pdf_crop.chars[index]['y0'], pdf_crop.chars[index - 2]['y0']) and \
-                        (self.equal(pdf_crop.chars[index - 2]['size'], self.main_size) and pdf_crop.chars[index - 2]['fontname'] == self.main_font) and \
-                        fontsize + 0.001 >= self.main_size:
-                    self.titles.append(text)
-                index = new_index
-                continue
-            if not self.equal(pdf_crop.chars[index]['y0'], pdf_crop.chars[index - 2]['y0']) or \
-                        not self.equal(pdf_crop.chars[new_index]['y0'], pdf_crop.chars[new_index - 2]['y0']) and \
-                        (self.equal(pdf_crop.chars[index - 2]['size'], self.main_size) and pdf_crop.chars[index - 1]['fontname'] == self.main_font or
-                         self.equal(pdf_crop.chars[new_index]['size'], self.main_size) and pdf_crop.chars[new_index]['fontname'] == self.main_font) and \
-                        fontsize + 0.001 >= self.main_size:
-                self.titles.append(text)
             index = new_index
 def run(pdf_path):
     article = Article()
     pdf = pdfplumber.open(pdf_path)
-    for page in tqdm(pdf.pages):
+    for page in pdf.pages:
         article.count(page)
     article.get_main()
-    for page in tqdm(pdf.pages):
+    for page in pdf.pages:
         article.parse(page)
-    return article.titles
+    return article.main_text
+
+def main():
+    # print(run(r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\pdf\10.1002@ar.24367.pdf'))
+    # exit(0)
+    root_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\mill_ref_pdf'
+    save_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\normal_maintext'
+    mill_list = os.listdir(root_path)
+    for mill_doi in tqdm (mill_list):
+        filelist = os.listdir(os.path.join(root_path, mill_doi))
+        for ref_doi in filelist:
+            if os.path.exists(os.path.join(os.path.join(root_path, mill_doi), ref_doi.replace('pdf', 'txt'))):
+                continue
+            pdf_path = os.path.join( os.path.join(root_path, mill_doi), ref_doi )
+            if not os.path.exists(os.path.join(save_path, mill_doi)):
+                os.makedirs(os.path.join(save_path, mill_doi))
+            try:
+                text = run(pdf_path)
+                with open(os.path.join(os.path.join(save_path, mill_doi), ref_doi.replace('pdf', 'txt')), 'w', encoding='utf-8') as f:
+                    f.write(text)
+            except Exception as e:
+                print(e)
+
 
 if __name__ == '__main__':
-    print(run(r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\pdf\10.1002@ar.24367.pdf'))
-    exit(0)
-    root_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\pdf'
-    save_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\titles'
-    filelist = os.listdir(root_path)
-    for filename in tqdm (filelist):
-        pdf_path = os.path.join(root_path, filename)
-        titles = run(pdf_path)
-        with open(os.path.join(save_path, filename.replace('pdf', 'txt')), 'w', encoding='utf-8') as f:
-            f.write('\n'.join(titles))
-
-
-
+    while True:
+        main()
+        time.sleep(60 * 60)
 
 
