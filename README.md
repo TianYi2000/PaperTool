@@ -41,6 +41,17 @@
     返回：
     文章结构化文本json文件
 
+## pdf_maintext.py - pdf转正文
+函数接口: `def run(pdf_path)`
+
+    输入：
+    pdf_path: 原始pdf路径
+
+    返回：
+    pdf的正文文本。（注：这里的正文定义为“PDF中出现最多次数的字体，所对应文本内容”）
+
+
+
 ## pdf_img.py pdf转img
 函数接口: `def run(pdf_path,img_path)`
 

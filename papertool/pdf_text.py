@@ -107,6 +107,7 @@ class Article:
         self.name = name
         self.journal = journal
         self.chapters = []
+        self.stop = False
     def equal(self, x, y):
         EPS = 0.11
         if fabs(x -y) < EPS:
@@ -222,9 +223,18 @@ class Article:
         dict['chapter_num'] = len(dict['chapters'])
         return dict
     def raw(self, pdf_crop, manual_add_space = True, word_distance = 1.5):
+        if self.stop:
+            return
         index = 0
         chars = pdf_crop.chars
         text = ''
+        all_text = ''.join([x['text'] for x in chars])
+        stopwords = ['参\u3000考\u3000文\u3000献', '参考文献', '参 考 文 献', 'Reference']
+        for stopword in stopwords:
+            if stopword in all_text:
+                pos = all_text.index(stopword)
+                chars = chars[:pos]
+                self.stop = True
         while index < len(chars):
             if chars[index]['text'] != '-':
                 text += chars[index]['text']
