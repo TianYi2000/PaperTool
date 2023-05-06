@@ -289,6 +289,6 @@ def run(pdf_path, font_config = None):
             article.raw(page)
         else:
             article.parse(page)
-    return article.to_json()
+    return article.to_json()['chapters'][0]['sections'][0]['text']
 if __name__ == '__main__':
-    print(run('D:\\Projects\\PaperTool\\test.pdf'))
+    print(run(r'D:\Projects\PaperTool\PaperTool\中国高血压防治指南(2018年修订版)-定版(1).pdf'))

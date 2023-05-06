@@ -102,28 +102,23 @@ def run(pdf_path):
 def main():
     # print(run(r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\pdf\10.1002@ar.24367.pdf'))
     # exit(0)
-    root_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\mill_ref_pdf'
-    save_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\normal_maintext'
+    root_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\new_normal_pdf'
+    save_path = r'D:\Projects\PaperMill\论文工厂数据\论文工厂数据1\new_normal_maintext'
+    os.makedirs(save_path, exist_ok=True)
     mill_list = os.listdir(root_path)
-    for mill_doi in tqdm (mill_list):
-        filelist = os.listdir(os.path.join(root_path, mill_doi))
-        for ref_doi in filelist:
-            if os.path.exists(os.path.join(os.path.join(root_path, mill_doi), ref_doi.replace('pdf', 'txt'))):
-                continue
-            pdf_path = os.path.join( os.path.join(root_path, mill_doi), ref_doi )
-            if not os.path.exists(os.path.join(save_path, mill_doi)):
-                os.makedirs(os.path.join(save_path, mill_doi))
-            try:
-                text = run(pdf_path)
-                with open(os.path.join(os.path.join(save_path, mill_doi), ref_doi.replace('pdf', 'txt')), 'w', encoding='utf-8') as f:
-                    f.write(text)
-            except Exception as e:
-                print(e)
+    for normal_doi in tqdm (mill_list):
+        pdf_path = os.path.join(root_path, normal_doi)
+        try:
+            text = run(pdf_path)
+            if text is None:
+                raise Exception('None')
+            with open(os.path.join(save_path, normal_doi.replace('pdf', 'txt')), 'w', encoding='utf-8') as f:
+                f.write(text)
+        except Exception as e:
+            print(normal_doi, e)
 
 
 if __name__ == '__main__':
-    while True:
-        main()
-        time.sleep(60 * 60)
+    print(run(r'D:\Projects\PaperTool\PaperTool\中国高血压防治指南(2018年修订版)-定版(1).pdf'))
 
 
