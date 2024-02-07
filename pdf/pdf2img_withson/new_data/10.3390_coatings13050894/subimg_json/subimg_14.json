@@ -1,0 +1,1 @@
+{"object": [{"name": "染色图", "bndbox": {"xmin": 1388.0, "ymin": 35.0, "xmax": 2325.0, "ymax": 614.0}}, {"name": "造影图", "bndbox": {"xmin": 38.0, "ymin": 44.0, "xmax": 1205.0, "ymax": 612.0}}], "size": {"width": 2354, "height": 616, "depth": 3}}

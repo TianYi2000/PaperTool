@@ -1,0 +1,108 @@
+{
+    "object": [
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 877.0,
+                "ymin": 872.0,
+                "xmax": 1159.0,
+                "ymax": 1090.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 278.0,
+                "ymin": 872.0,
+                "xmax": 562.0,
+                "ymax": 1090.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 579.0,
+                "ymin": 644.0,
+                "xmax": 863.0,
+                "ymax": 859.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 578.0,
+                "ymin": 872.0,
+                "xmax": 862.0,
+                "ymax": 1090.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 877.0,
+                "ymin": 644.0,
+                "xmax": 1159.0,
+                "ymax": 859.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 278.0,
+                "ymin": 644.0,
+                "xmax": 562.0,
+                "ymax": 859.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 382.0,
+                "ymin": 291.0,
+                "xmax": 741.0,
+                "ymax": 558.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 382.0,
+                "ymin": 0.0,
+                "xmax": 741.0,
+                "ymax": 269.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 0.0,
+                "ymin": 0.0,
+                "xmax": 358.0,
+                "ymax": 269.0
+            }
+        },
+        {
+            "name": "造影图",
+            "bndbox": {
+                "xmin": 0.0,
+                "ymin": 291.0,
+                "xmax": 358.0,
+                "ymax": 558.0
+            }
+        },
+        {
+            "name": "统计图",
+            "bndbox": {
+                "xmin": 870.0,
+                "ymin": 89.0,
+                "xmax": 1290.0,
+                "ymax": 373.0
+            }
+        }
+    ],
+    "size": {
+        "width": 1293,
+        "height": 1092,
+        "depth": 3
+    }
+}
